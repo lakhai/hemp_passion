@@ -24,7 +24,7 @@ function sama_vcSetAsTheme() {
     vc_set_as_theme();
 }
 
-// Disable update for Visual Composer 
+// Disable update for Visual Composer
 vc_set_as_theme( $disable_updater = false );
 
 
@@ -52,22 +52,23 @@ function sama_get_iconsmoon_font() {
 		'icon-drinks' 		=> 'icon-drinks',
 		'icon-launch' 		=> 'icon-launch',
 		'icon-home-ico' 	=> 'icon-home-ico',
-		'icon-bottom-draw' 	=> 'icon-bottom-draw',	
+		'icon-bottom-draw' 	=> 'icon-bottom-draw',
 	);
 	return $icons;
 }
 //	Custom Icon Select
 function sama_icons_moon_settings_field($settings, $value) {
 	$fa_icons		= sama_get_iconsmoon_font();
-	$dependency 	= vc_generate_dependencies_attributes($settings);
+	$dependency 	= "";//vc_generate_dependencies_attributes($settings);
+
 	$return 		= '<div class="icongroup"><input type="hidden" name="'.$settings['param_name'].'" class="wpb_vc_param_value wpb-textinput '.$settings['param_name'].' '.$settings['type'].'_field vc-icon-select" value="'.$value.'" '.$dependency.'>';
-	$icon_value 	= $value;			
+	$icon_value 	= $value;
 	$return 	.= '<div class="vc-icon-select wpb-icon-prefix">';
-	foreach( $fa_icons as $k => $fontmoon_icon) { 
+	foreach( $fa_icons as $k => $fontmoon_icon) {
 		 $return .= '<i class="'.$fontmoon_icon.' '.($icon_value == $k ? "selected" : "" ).'" data-icon="'.$k.'"></i>';
-	}	
+	}
 	$return .= '</div></div>';
-	
+
 	return $return;
 }
 vc_add_shortcode_param('iconsmoon', 'sama_icons_moon_settings_field' , get_template_directory_uri().'/includes/vc-extend/js/iconselect.js');
@@ -75,7 +76,7 @@ vc_add_shortcode_param('iconsmoon', 'sama_icons_moon_settings_field' , get_templ
 
 // CSS3 Animation Type
 function sama_add_animation( $param_name = 'css_animation_type' ) {
-	
+
 	$sama_add_animation = array(
 		'type' 		=> 'dropdown',
 		'heading' 	=> esc_html__('CSS Animation', 'theme-majesty'),
@@ -128,7 +129,7 @@ function sama_add_animation( $param_name = 'css_animation_type' ) {
 			'zoomInUp' 				=> 'zoomInUp',
 		)
 	);
-	
+
 	return $sama_add_animation;
 }
 
@@ -174,7 +175,7 @@ function sama_data_animation_delay( $param_name = 'css_animation_delay' ) {
 			'3000' => '3000',
 		)
 	);
-	
+
 	return $sama_data_animation_delay;
 }
 
@@ -207,7 +208,7 @@ $colors_arr = array(
 	esc_html__( 'Asbestos', 'theme-majesty' ) 		=> 'asbestos-btn',
 	esc_html__( 'Silver', 'theme-majesty' ) 		=> 'silver-btn',
 	esc_html__( 'Custom Color', 'theme-majesty' ) 	=> 'custom',
-	
+
 );
 
 $transparent = array(
@@ -229,7 +230,7 @@ $yes_array = array(
 	esc_html__( 'No',	'theme-majesty' ) 	=> 'no',
 );
 
-// Return all of categories for posts as array 
+// Return all of categories for posts as array
 function sama_get_all_categories() {
 	$cats['All Categories'] = -1;
 	$categories = get_terms( 'category', array(
@@ -239,16 +240,16 @@ function sama_get_all_categories() {
 	foreach ( $categories as $cat ) {
 		$cats[$cat->name] = $cat->term_id ;
 	}
-	
+
 	return $cats;
 }
 
 // WooCommerce Categories
 // Used for checkbox
 function sama_get_woocommerce_categories() {
-		
+
 	if ( class_exists('woocommerce') ) {
-		
+
 		$args = array(
 			'orderby' => 'id',
 			'order' => 'ASC',
@@ -283,7 +284,7 @@ function sama_order_by_values() {
 		esc_html__( 'Comment count', 'theme-majesty' ) => 'comment_count',
 		esc_html__( 'Menu order', 'theme-majesty' ) => 'menu_order',
 	);
-	
+
 	return $order_by_values;
 }
 
@@ -293,7 +294,7 @@ function sama_order_way_values() {
 		esc_html__( 'Descending', 'theme-majesty' ) => 'DESC',
 		esc_html__( 'Ascending', 'theme-majesty' ) => 'ASC',
 	);
-	
+
 	return $order_way_values;
 }
 
@@ -301,8 +302,8 @@ function sama_order_way_values() {
 
 /* Edit Elments in Visual Composer
 ---------------------------------------------------------- */
-/*	
- * Edit VC Row 
+/*
+ * Edit VC Row
  */
 vc_remove_param( "vc_row", "full_width" );
 vc_remove_param( "vc_row", "parallax" );
@@ -347,7 +348,7 @@ vc_add_param( 'vc_row' , array(
 							esc_html__('padding top 60px', 'theme-majesty')			=> 'padding-t-60',
 							esc_html__('padding top 80px', 'theme-majesty')			=> 'padding-t-80',
 							esc_html__('padding top 100px', 'theme-majesty')		=> 'padding-t-100',
-							esc_html__('padding top 150px', 'theme-majesty')		=> 'padding-t-150',	
+							esc_html__('padding top 150px', 'theme-majesty')		=> 'padding-t-150',
 							esc_html__('padding bottom 20px', 'theme-majesty')		=> 'padding-b-20',
 							esc_html__('padding bottom 40px', 'theme-majesty')		=> 'padding-b-40',
 							esc_html__('padding bottom 50px', 'theme-majesty')		=> 'padding-b-50',
@@ -356,7 +357,7 @@ vc_add_param( 'vc_row' , array(
 							esc_html__('padding bottom 80px', 'theme-majesty')		=> 'padding-b-80',
 							esc_html__('padding bottom 100px', 'theme-majesty')		=> 'padding-b-100',
 							esc_html__('padding bottom 120px', 'theme-majesty')		=> 'padding-b-120',
-							esc_html__('padding bottom 150px', 'theme-majesty')		=> 'padding-b-150',	
+							esc_html__('padding bottom 150px', 'theme-majesty')		=> 'padding-b-150',
 						)
 		)
 );
@@ -457,8 +458,8 @@ vc_add_param( 'vc_row' , array(
 	'dependency'  => array( 'element' => 'parallax', 'value' =>  array('youtube') )
 ));
 
-/*	
- * Edit VC Column 
+/*
+ * Edit VC Column
  */
 $text_align = array(
 	'type' 		=> 'dropdown',
@@ -531,7 +532,7 @@ vc_map( array(
 	'category' 	  	=> esc_html__('Content', 'theme-majesty'),
 	'admin_label' 	=> true,
 	'category' 		=>	array( esc_html__('By SamaThemes', 'theme-majesty'),esc_html__('Content', 'theme-majesty') ),
-	
+
 	'params' 		=> array(
 		array(
 		  'type' 			=> 'dropdown',
@@ -574,7 +575,7 @@ vc_map( array(
 			'value' 		=> array(
 								esc_html__('40px', 'theme-majesty') => '',
 								esc_html__('60px', 'theme-majesty') => 'icon-60',
-								esc_html__('70px',	'theme-majesty') 	=> 'icon-large',							
+								esc_html__('70px',	'theme-majesty') 	=> 'icon-large',
 							),
 			'dependency' 	=> array( 'element' => 'icon_type', 'value' =>  array('iconmoon', 'fontawesome') )
 		),
@@ -583,7 +584,7 @@ vc_map( array(
 			'heading' 		=> esc_html__('Title', 'theme-majesty'),
 			'param_name' 	=> 'title',
 			'admin_label' 	=> true
-		),		
+		),
 		array(
 		  'type' 			=> 'textarea',
 		  'heading' 		=> esc_html__('Content', 'theme-majesty'),
@@ -643,8 +644,6 @@ vc_map( array(
 								esc_html__('80px',   	'theme-majesty')	=> 'mb60',
 							)
 		),
-		sama_add_animation(),
-		sama_data_animation_delay(),
 		array(
 			'type' 			=> 'textfield',
 			'heading' 		=> esc_html__('Extra class name', 'theme-majesty'),
@@ -776,7 +775,7 @@ vc_map( array(
 								esc_html__('Theme Button', 'theme-majesty') 	=> 'theme_btn',
 							)
 		),
-		
+
 		array(
 			'type' 			=> 'dropdown',
 			'heading' 		=> esc_html__( 'Color', 'theme-majesty' ),
@@ -969,7 +968,7 @@ vc_map( array(
 		  'heading' => esc_html__('Extra class name', 'theme-majesty'),
 		  'param_name' => 'el_class',
 		  'description' => esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
-		),	
+		),
 	)
 ));
 
@@ -1049,7 +1048,7 @@ vc_map( array(
 			'heading' 		=> esc_html__('Extra class name', 'theme-majesty'),
 			'param_name' 	=> 'el_class',
 			'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
-		),	
+		),
 	)
 ));
 
@@ -1117,7 +1116,7 @@ vc_map( array(
 			'heading' 		=> esc_html__('Extra class name', 'theme-majesty'),
 			'param_name' 	=> 'el_class',
 			'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
-		),	
+		),
 	)
 ));
 
@@ -1159,7 +1158,7 @@ vc_map( array(
 			'heading' 		=> esc_html__('Extra class name', 'theme-majesty'),
 			'param_name' 	=> 'el_class',
 			'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
-		),	
+		),
 	)
 ));
 
@@ -1254,7 +1253,7 @@ vc_map( array(
 		  'heading' 		=> esc_html__('Extra class name', 'theme-majesty'),
 		  'param_name' 		=> 'el_class',
 		  'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
-		),	
+		),
 	)
 ));
 
@@ -1306,7 +1305,7 @@ vc_map( array(
 		  'param_name' 		=> 'el_class',
 		  'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
 		),
-		
+
 	)
 ));
 
@@ -1349,7 +1348,7 @@ vc_map( array(
 								esc_html__('True', 'theme-majesty')  => 'true',
 							)
 		),
-		
+
 		array(
 			'type' => 'textarea',
 			'heading' => esc_html__( 'Short Description', 'theme-majesty' ),
@@ -1643,7 +1642,7 @@ vc_map( array(
 			'param_name' => 'partysize',
 			'value'			=> 20,
 		),
-				
+
 		array(
 			'type' => 'exploded_textarea',
 			'heading' => esc_html__('Opening Time', 'theme-majesty'),
@@ -1651,7 +1650,7 @@ vc_map( array(
 			'param_name' => 'time',
 			'value'			=> '12:00 AM, 12:30 AM, 1:00 AM, 1:30 AM, 2:00 AM, 2:30 AM, 3:00 AM, 3:30 AM, 4:00 AM, 4:30 AM, 5:00 AM, 5:30 AM, 6:00 AM, 6:30 AM, 7:00 AM, 7:30 AM, 8:00 AM, 8:30 AM, 9:00 AM, 9:30 AM, 10:00 AM, 10:30 AM, 11:00 AM, 11:30 AM, 12:00 PM, 12:30 PM, 1:00 PM, 1:30 PM, 2:00 PM, 2:30 PM, 3:00 PM, 3:30 PM, 4:00 PM, 4:30 PM, 5:00 PM, 5:30 PM, 6:00 PM, 6:30 PM, 7:00 PM, 7:30 PM, 8:00 PM, 8:30 PM, 9:00 PM, 9:30 PM, 10:00 PM, 10:30 PM, 11:00 PM, 11:30 PM',
 		),
-		
+
 		array(
 			'type' => 'textfield',
 			'heading' => esc_html__( 'Extra class name', 'theme-majesty' ),
@@ -1699,7 +1698,7 @@ vc_map( array(
 			'heading' 		=> esc_html__('Extra class name', 'theme-majesty'),
 			'param_name' 	=> 'el_class',
 			'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
-		),	
+		),
 	)
 ));
 
@@ -1895,7 +1894,7 @@ vc_map( array(
 			'description' => esc_html__( 'means that if window <= 479.', 'theme-majesty' ),
 			'dependency' 	=> array( 'element' => 'type','value' => array( 'carousel' ) )
 		),
-		
+
 		array(
 			'type' => 'textfield',
 			'heading' => esc_html__( 'Extra class name', 'theme-majesty' ),
@@ -1951,7 +1950,7 @@ vc_map( array(
 			'description' => esc_html__( 'means that if window <= 1199.', 'theme-majesty' ),
 			'dependency' 	=> array( 'element' => 'type','value' => array( 'slider' ) )
 		),
-		
+
 		array(
 			'type' => 'textfield',
 			'heading' => esc_html__( 'Extra class name', 'theme-majesty' ),
@@ -2045,7 +2044,7 @@ vc_map( array(
 			'heading' 		=> esc_html__('Extra class name', 'theme-majesty'),
 			'param_name' 	=> 'el_class',
 			'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
-		),		
+		),
 	)
 ));
 
@@ -2167,7 +2166,7 @@ vc_map( array(
 		  'param_name' 		=> 'el_class',
 		  'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
 		),
-		
+
 	)
 ));
 
@@ -2176,7 +2175,7 @@ vc_map( array(
 ---------------------------------------------------------- */
 // Restaurant Reservations
 if ( class_exists('rtbInit') ) {
-	
+
 	if ( class_exists( 'WPBakeryShortCode' ) ) {
 		class WPBakeryShortCode_Vc_Restaurant_Reservations extends WPBakeryShortCode {}
 	}
@@ -2200,7 +2199,7 @@ if ( class_exists('rtbInit') ) {
 
 // TeamMembers plugin
 if ( class_exists('Woothemes_Our_Team') ) {
-	
+
 	if ( class_exists( 'WPBakeryShortCode' ) ) {
 		class WPBakeryShortCode_Vc_Team_Members_Carousel extends WPBakeryShortCode {}
 	}
@@ -2279,7 +2278,7 @@ if ( class_exists('Woothemes_Our_Team') ) {
 				'param_name' 	=> 'el_class',
 				'description' 	=> esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file. ', 'theme-majesty'),
 			),
-			
+
 		)
 	) );
 }
@@ -2440,7 +2439,7 @@ if ( class_exists('woocommerce') ) {
 				'param_name' 	=> 'display',
 				'admin_label' 	=> true,
 				'value'			=> $woo_layout,
-									
+
 			),
 			array(
 				'type' => 'textfield',
@@ -2487,31 +2486,31 @@ if ( class_exists('woocommerce') ) {
 			'value' 		=> $woo_layout,
 			'weight'	=> 1,
 		);
-				
+
 		vc_remove_param( "product_category", "columns" );
 		vc_add_param( 'product_category' , $columns);
-		
+
 		vc_remove_param( "recent_products", "columns" );
 		vc_add_param( 'recent_products' , $columns);
-		
+
 		vc_remove_param( "featured_products", "columns" );
 		vc_add_param( 'featured_products' , $columns);
-		
+
 		vc_remove_param( "best_selling_products", "columns" );
 		vc_add_param( 'best_selling_products' , $columns);
-		
+
 		vc_remove_param( "sale_products", "columns" );
 		vc_add_param( 'sale_products' , $columns);
-		
+
 		vc_remove_param( "top_rated_products", "columns" );
 		vc_add_param( 'top_rated_products' , $columns);
-		
+
 		vc_remove_param( "product_attribute", "columns" );
 		vc_add_param( 'product_attribute' , $columns);
-		
+
 		vc_remove_param( "products", "columns" );
 		vc_add_param( 'products' , $columns);
-		
+
 		vc_add_param( 'product' , $columns);
 	}
 }
