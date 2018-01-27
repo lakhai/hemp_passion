@@ -12,6 +12,9 @@
  * @var bool
  */
 define('WP_USE_THEMES', true);
+@ini_set('upload_max_filesize', '12M');
+@ini_set('post_max_size','13M');
+@ini_set('memory_limit','15M');
 
 /** Loads the WordPress Environment and Template */
 require( dirname( __FILE__ ) . '/wp-blog-header.php' );
