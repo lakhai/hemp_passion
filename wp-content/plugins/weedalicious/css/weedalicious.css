@@ -1,0 +1,90 @@
+/*
+Podés agregar tu propio CSS aquí.
+
+Hacé clic en el ícono de ayuda de arriba para averiguar más.
+*/
+@font-face {
+	font-family: "Mexican Pride";
+	src: url("http://local.hemppassion.com/wp-content/themes/majesty/fonts/mexican-pride.ttf");
+}
+@font-face {
+	font-family: "Blacksword";
+	src: url("http://local.hemppassion.com/wp-content/themes/majesty/fonts/Blacksword.otf");
+}
+.slider-content h1 {
+	font-size:130px !important;
+}
+.slider-content p {
+	font-family: "Blacksword" !important;
+	font-size: 50px;
+}
+.feature_box_hp>.block-item {
+	height: 375px !important;
+}
+.owl_slider_hp {
+	margin-top: 50px;
+}
+.owl_slider_hp img {
+	width: 190px !important;
+}
+.owl_slider_hp .owl-carousel.single-img {
+	display: none !important;
+}
+.video-content i, .slider-content i {
+	font-size: 100px;
+}
+
+.dark h1 span, .dark h2 span, .dark h3 span, h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
+        font-weight: 700;
+    color: #437c3c;
+    font-size: 61px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgba(122,186,113,0.5);
+}
+#wpcf7-f1817-p1562-o1 .btn-gold {
+color: #c59d5f !important;
+}
+#wpcf7-f1817-p1562-o1 .btn-gold:hover {
+color: white !important;
+}
+
+.menu-fillter a:before {
+    content: "\e931" !important;
+    font: normal normal normal 26px/1 icofont !important;
+    color: #c59d5f !important;
+    padding-right: 20px !important;
+    vertical-align: middle !important;
+}
+
+.head_title i, .latest_news i, .masonary_blog i, .blog-grid i {
+    color: #c59d5f !important;
+    font-size: 40px !important;
+    border-bottom: 6px double #c59d5f !important;
+    padding-bottom: 17px !important;
+    margin-bottom: 10px !important;
+    border-bottom-style: double !important;
+}
+
+h2.heading, .head_title h2 {
+	margin-top: 10px !important;
+}
+
+.icon-intro:before {
+    content: "\e931" !important;
+    color: #c59d5f !important;
+    font: normal normal normal 72px/1 icofont !important;
+    vertical-align: middle !important;
+}
+
+.weedalicious-inverted-title h2 {
+    color: #ffffff;
+
+}
+
+.weedalicious-inverted-title .icon-intro {
+    color: #c59d5f !important;
+}
+
+#hp-after-product-divider {
+    height: 130px;
+}

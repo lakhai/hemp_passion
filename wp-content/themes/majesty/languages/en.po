@@ -5026,3 +5026,6 @@ msgstr ""
 #: ../woocommerce/single-product/review-meta.php:36
 msgid "verified owner"
 msgstr ""
+
+msgid "View Cart"
+msgstr "Ver Compras"

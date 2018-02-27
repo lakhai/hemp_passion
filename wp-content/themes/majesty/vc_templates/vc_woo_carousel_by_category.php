@@ -59,7 +59,7 @@ if ( ( $products ) && $products->have_posts() ) {
 								<span class="price"><?php echo $product->get_price_html(); ?></span>
 								<?php echo $product->get_rating_html(); ?>
 								<?php echo  woocommerce_template_loop_add_to_cart(); ?>
-								<a class="btn btn-gold button" href="<?php echo esc_url( get_permalink( $product->id ) ); ?>" title="<?php echo esc_attr( $product->get_title() ); ?>"><i class="fa fa-link"></i></a>
+								<?php /* <a class="btn btn-gold button" href="<?php echo esc_url( get_permalink( $product->id ) ); ?>" title="<?php echo esc_attr( $product->get_title() ); ?>"><i class="fa fa-link"></i></a> */ ?>
 								<a class="close-overlay hidden">x</a>
 							</div>
 						</div>

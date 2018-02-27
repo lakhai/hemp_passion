@@ -105,7 +105,7 @@ foreach( $cats as $cat ) {
 							<?php echo sama_woocommerce_get_custom_excerpt( absint($excerpt_length) ); ?>
 							<div class="form-group buttons"> 
 							<?php echo  woocommerce_template_loop_add_to_cart(); // woocommerce_template_loop_add_to_cart ?>
-							<a class="btn btn-gold" href="<?php echo esc_url( get_permalink( $product->id ) ); ?>" title="<?php echo esc_attr( $product->get_title() ); ?>"><i class="fa fa-link"></i></a>
+							<?php /* <a class="btn btn-gold" href="<?php echo esc_url( get_permalink( $product->id ) ); ?>" title="<?php echo esc_attr( $product->get_title() ); ?>"><i class="fa fa-link"></i></a> */ ?>
 							</div>
                         </div>
                 </div>

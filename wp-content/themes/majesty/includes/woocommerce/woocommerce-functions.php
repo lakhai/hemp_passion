@@ -179,8 +179,8 @@ function sama_woocommerce_pagination_args() {
 		'add_args'     => '',
 		'current'      => max( 1, get_query_var( 'paged' ) ),
 		'total'        => $wp_query->max_num_pages,
-		'prev_text'    => esc_html__('Previous', 'theme-majesty'),
-		'next_text'    => esc_html__('Next', 'theme-majesty'),
+		'prev_text'    => esc_html__('Anterior', 'theme-majesty'),
+		'next_text'    => esc_html__('Siguientea', 'theme-majesty'),
 		'type'         => 'list',
 		'end_size'     => 3,
 		'mid_size'     => 3
@@ -235,7 +235,7 @@ function sama_woocommerce_before_shop_loop_item() {
 		echo woocommerce_get_product_thumbnail( 'majesty-thumb-100' );
 		echo '<div class="overlay"><div class="icons">';
 		do_action('sama_woocommerce_loop_display_list_add_to_cart');
-		echo '<a class="button btn btn-gold margin0" href="'.  esc_url( get_permalink() ) .'" title="'. the_title_attribute(array('echo'=>false)) .'"><i class="fa fa-link"></i></a>';
+		// echo '<a class="button btn btn-gold margin0" href="'.  esc_url( get_permalink() ) .'" title="'. the_title_attribute(array('echo'=>false)) .'"><i class="fa fa-link"></i></a>';
 		echo '</div><a class="close-overlay hidden">x</a></div></div></div></div>';
 	} elseif( $shortocde_layout == 'list2' || ( ( is_shop() || is_product_category() || is_product_tag() ) && ( $shop_layout == 'list2' || $shop_layout == 'list2sidebar' ) ) ) {
 		// List 2 Add to cart Button under image and excerpt
@@ -332,7 +332,7 @@ function sama_woocommerce_after_shop_loop_item_100() {
 	} elseif( in_array( $shortocde_layout, $woo_default_cols ) || ( ( is_shop() || is_product_category() || is_product_tag() ) && in_array( $shop_layout, $woo_default_cols ) ) ) {
 	} else {
 		// Add link icon to product
-		echo '<a class="button btn btn-gold margin0" href="'.  esc_url( get_permalink() ) .'" title="'. the_title_attribute(array('echo'=>false)) .'"><i class="fa fa-link"></i></a>';
+		// echo '<a class="button btn btn-gold margin0" href="'.  esc_url( get_permalink() ) .'" title="'. the_title_attribute(array('echo'=>false)) .'"><i class="fa fa-link"></i></a>';
 		echo '<a class="close-overlay hidden">x</a></div></div></div></div>';
 	}
 }
@@ -346,7 +346,7 @@ function sama_woocommerce_show_product_loop_featured() {
 	global $product;
 	$featured = get_post_meta( esc_attr( $product->id ), '_featured', true );
 	if( $featured == 'yes' ) {
-		echo '<span class="featured-product label red">' . esc_html__( 'Featured', 'theme-majesty' ) . '</span>';
+		echo '<span class="featured-product label red">' . esc_html__( 'Destacado', 'theme-majesty' ) . '</span>';
 	}
 }
 
@@ -356,7 +356,7 @@ function sama_woocommerce_show_product_loop_featured() {
  * @ since 1.0
  */
 function sama_woocommerce_saleflash( $saleflash ) {
-	return '<span class="onsale label">' . esc_html__( 'Sale!', 'theme-majesty' ) . '</span>';
+	return '<span class="onsale label">' . esc_html__( 'Oferta!', 'theme-majesty' ) . '</span>';
 }
 
 /*
@@ -498,13 +498,13 @@ function sama_woocommerce_product_review_comment_form_args( $comment_form ) {
 	
 	$commenter = wp_get_current_commenter();
 	$comment_form = array(
-		'title_reply'          => have_comments() ? esc_html__( 'Add a review', 'woocommerce' ) : esc_html__( 'Be the first to review', 'woocommerce' ) . ' &ldquo;' . get_the_title() . '&rdquo;',
-		'title_reply_to'       => esc_html__( 'Leave a Reply to %s', 'woocommerce' ),
+		'title_reply'          => have_comments() ? esc_html__( 'Agregar una reseña', 'woocommerce' ) : esc_html__( 'Decinos qué te parece!', 'woocommerce' ) . ' &ldquo;' . get_the_title() . '&rdquo;',
+		'title_reply_to'       => esc_html__( 'Dejar una respuesta a %s', 'woocommerce' ),
 		'comment_notes_before' => '',
 		'comment_notes_after'  => '',
 		'fields'               => array(
 			'author' => '<div class="comment-form-author col-md-6 col-sm-6 col-sx-12">' .
-						'<input class="form-control" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" placeholder="'. esc_html__( 'NAME', 'theme-majesty' ) .' *" aria-required="true" /></div>',
+						'<input class="form-control" id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" placeholder="'. esc_html__( 'NOMBRE', 'theme-majesty' ) .' *" aria-required="true" /></div>',
 			'email'  => '<div class="comment-form-email col-md-6 col-sm-6 col-sx-12">' .
 						'<input class="form-control" id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" placeholder="'. esc_html__( 'EMAIL', 'theme-majesty' ) .' *" aria-required="true" /></div>',
 		),
@@ -516,15 +516,15 @@ function sama_woocommerce_product_review_comment_form_args( $comment_form ) {
 	if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
 		$comment_form['comment_field'] = '<p class="comment-form-rating"><label for="rating">' . esc_html__( 'Your Rating', 'woocommerce' ) .'</label><select name="rating" id="rating">
 			<option value="">' . esc_html__( 'Rate&hellip;', 'woocommerce' ) . '</option>
-			<option value="5">' . esc_html__( 'Perfect', 'woocommerce' ) . '</option>
-			<option value="4">' . esc_html__( 'Good', 'woocommerce' ) . '</option>
-			<option value="3">' . esc_html__( 'Average', 'woocommerce' ) . '</option>
-			<option value="2">' . esc_html__( 'Not that bad', 'woocommerce' ) . '</option>
-			<option value="1">' . esc_html__( 'Very Poor', 'woocommerce' ) . '</option>
+			<option value="5">' . esc_html__( 'Perfecto', 'woocommerce' ) . '</option>
+			<option value="4">' . esc_html__( 'Bueno', 'woocommerce' ) . '</option>
+			<option value="3">' . esc_html__( 'Maomeno', 'woocommerce' ) . '</option>
+			<option value="2">' . esc_html__( 'Má meno que má', 'woocommerce' ) . '</option>
+			<option value="1">' . esc_html__( 'Muy malo', 'woocommerce' ) . '</option>
 		</select></p>';
 	}
 
-	$comment_form['comment_field'] .= '<div class="comment-form-comment col-md-12"><textarea id="comment" name="comment" placeholder="'. _x( 'YOUR COMMENT', 'noun', 'theme-majesty' ) .' *" aria-required="true"></textarea></div>';
+	$comment_form['comment_field'] .= '<div class="comment-form-comment col-md-12"><textarea id="comment" name="comment" placeholder="'. _x( 'TU COMENTARIO', 'noun', 'theme-majesty' ) .' *" aria-required="true"></textarea></div>';
 	
 	return $comment_form;
 	
