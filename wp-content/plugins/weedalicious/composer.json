@@ -1,0 +1,14 @@
+{
+    "name": "lakhai/weedalicious",
+    "description": "A plugin for wordpress development when u high af.",
+    "type": "project",
+    "license": "To Kill",
+    "authors": [
+        {
+            "name": "Sebastian Salines",
+            "email": "sebastian@capicua.com.uy"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {}
+}

@@ -21,6 +21,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-		</div>
-	</body>
-</html>

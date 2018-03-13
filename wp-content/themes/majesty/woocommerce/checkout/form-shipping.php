@@ -19,7 +19,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-/*
+
 ?>
 <div class="woocommerce-shipping-fields">
 	<?php if ( true === WC()->cart->needs_shipping_address() ) : ?>
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php if ( ! WC()->cart->needs_shipping() || wc_ship_to_billing_address_only() ) : ?>
 
-			<h3><?php _e( 'Additional information', 'woocommerce' ); ?></h3>
+			<h3><?php _e( 'Información adicional', 'woocommerce' ); ?></h3>
 
 		<?php endif; ?>
 
@@ -74,4 +74,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php do_action( 'woocommerce_after_order_notes', $checkout ); ?>
 </div>
-*/
