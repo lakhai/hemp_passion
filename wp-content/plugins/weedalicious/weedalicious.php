@@ -96,8 +96,8 @@ function reorder_woo_fields($fields) {
 
     return $fields;
 }
- add_action('admin_menu', 'test_plugin_setup_menu');
- function test_plugin_setup_menu(){
+add_action('admin_menu', 'test_plugin_setup_menu');
+function test_plugin_setup_menu(){
     add_menu_page( 'Importar Productos', 'Hemp Passion', 'manage_options', 'hemp-passion', 'hp_importer' );
 }
 
@@ -133,8 +133,8 @@ function hp_importer(){
 function test_handle_post(){
     // First check if the file appears on the _FILES array
     require(plugin_dir_path( __FILE__ ) . '/includes/XLSXReader.php');
-    // $xlsx = new XLSXReader($_FILES['test_upload_csv']['tmp_name']);
-    $xlsx = new XLSXReader(plugin_dir_path( __FILE__ ) . '/lista.xlsx');
+    $xlsx = new XLSXReader($_FILES['test_upload_csv']['tmp_name']);
+    // $xlsx = new XLSXReader(plugin_dir_path( __FILE__ ) . '/lista.xlsx');
     $sheetNames = $xlsx->getSheetNames();
 
     clearWoocommerce();
@@ -171,7 +171,6 @@ function array2Table($data) {
             }
 
             echo "<tr>";
-            echo "<td><strong>INDEX:</strong> ".$index." <strong>TYPE:</strong>".detectRow($row)."</td>";
             foreach($row as $cell) {
                 echo "<td>" . escape($cell) . "</td>";
             }
@@ -228,8 +227,6 @@ function array2Table($data) {
               wp_set_object_terms( $post_id, $cid['term_id'], 'product_cat' );
         }
     }
-    dd($categories);
-    die();
 }
 
 function escape($string) {
