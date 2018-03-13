@@ -9,6 +9,8 @@
  * License:     GNU General Public License v2.0 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
  add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style( 'icofont', plugin_dir_url( __FILE__ ) . '/css/icofont.css' );
