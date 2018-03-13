@@ -134,22 +134,22 @@ function hp_importer(){
 
 function test_handle_post(){
     // First check if the file appears on the _FILES array
-    require(plugin_dir_path( __FILE__ ) . '/includes/XLSXReader.php');
-    $xlsx = new XLSXReader($_FILES['test_upload_csv']['tmp_name']);
-    // $xlsx = new XLSXReader(plugin_dir_path( __FILE__ ) . '/lista.xlsx');
-    $sheetNames = $xlsx->getSheetNames();
-
-    clearWoocommerce();
-
-    $categories = [];
-    foreach($sheetNames as $sheetName) {
-        $sheet = $xlsx->getSheet($sheetName);
-        ?>
-        <h3><?php echo escape($sheetName); ?></h3>
-        <?php
-        array2Table($sheet->getData());
-    }
     if(isset($_FILES['test_upload_csv'])) {
+        require(plugin_dir_path( __FILE__ ) . '/includes/XLSXReader.php');
+        $xlsx = new XLSXReader($_FILES['test_upload_csv']['tmp_name']);
+        // $xlsx = new XLSXReader(plugin_dir_path( __FILE__ ) . '/lista.xlsx');
+        $sheetNames = $xlsx->getSheetNames();
+    
+        clearWoocommerce();
+    
+        $categories = [];
+        foreach($sheetNames as $sheetName) {
+            $sheet = $xlsx->getSheet($sheetName);
+            ?>
+            <h3><?php echo escape($sheetName); ?></h3>
+            <?php
+            array2Table($sheet->getData());
+        }
     }
 }
 
