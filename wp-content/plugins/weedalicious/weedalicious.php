@@ -130,24 +130,23 @@ function hp_save_meta_fields( $post_id ) {
         }
     }
     foreach(array_reverse($images_to_fetch) as $index => $image) {
-        $isThumbnail = $index == 0 ? 'true' : 'null';
-        dd([$isThumbnail, $index, $image]);
-        if ($isThumbnail == 'true')
+        $isThumbnail = $index == 0;
+        if ($isThumbnail)
             $attachments[] = uploadRemoteImageAndAttach($image, $post_id, true);
-        elseif ($isThumbnail == 'null')
+        else
             $attachments[] = uploadRemoteImageAndAttach($image, $post_id);
     }
-    // $description = $dom->getElementById('yt_tab_decription');
-
-    // wp_update_post([
-    //     'ID' => $post_id,
-    //     'post_content' => $description->textContent,
-    //     'post_excerpt' => $description->textContent,
-    // ]);
+    $description = $dom->getElementById('yt_tab_decription');
+    if($description && isset($description->textContent) && $description->textContent != '') {
+        wp_update_post([
+            'ID' => $post_id,
+            'post_content' => $description->textContent,
+            'post_excerpt' => $description->textContent,
+        ]);
+    }
     update_post_meta($post_id, '_product_image_gallery', implode(',', $attachments));
 
     return $post_id;
-    // var_dump($images_to_fetch);die();  
 }
 add_action( 'save_post', 'hp_save_meta_fields' );
 add_action( 'new_to_publish', 'hp_save_meta_fields' );
