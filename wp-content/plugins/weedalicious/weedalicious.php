@@ -130,20 +130,20 @@ function hp_save_meta_fields( $post_id ) {
         }
     }
     foreach(array_reverse($images_to_fetch) as $index => $image) {
-        // $isThumbnail = $index == 0 ? 'true' : 'null';
-        // dd([$isThumbnail, $index, $image]);
-        // if ($isThumbnail == 'true')
+        $isThumbnail = $index == 0 ? 'true' : 'null';
+        dd([$isThumbnail, $index, $image]);
+        if ($isThumbnail == 'true')
             $attachments[] = uploadRemoteImageAndAttach($image, $post_id, true);
-        // elseif ($isThumbnail == 'null')
-            // $attachments[] = uploadRemoteImageAndAttach($image, $post_id);
+        elseif ($isThumbnail == 'null')
+            $attachments[] = uploadRemoteImageAndAttach($image, $post_id);
     }
-    $description = $dom->getElementById('yt_tab_decription');
+    // $description = $dom->getElementById('yt_tab_decription');
 
-    wp_update_post([
-        'ID' => $post_id,
-        'post_content' => $description->textContent,
-        'post_excerpt' => $description->textContent,
-    ]);
+    // wp_update_post([
+    //     'ID' => $post_id,
+    //     'post_content' => $description->textContent,
+    //     'post_excerpt' => $description->textContent,
+    // ]);
     update_post_meta($post_id, '_product_image_gallery', implode(',', $attachments));
 
     return $post_id;
@@ -438,7 +438,6 @@ function uploadRemoteImageAndAttach($image_url, $parent_id, $thumbnail = false){
     wp_update_attachment_metadata( $attach_id, $attach_data );
 
     // If thumbnail is set to true use this attachment as featured image
-    dd($attach_id);
     if($thumbnail)
         set_post_thumbnail($parent_id, $attach_id);
 
