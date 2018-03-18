@@ -38,7 +38,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php else : ?>
 
-			<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', __( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); ?></p>
+			<h1>Gracias por su compra!</h1>
+			<p>Gracias por su compra y por confiar en nuestros productos En un lapso de 24 horas se comunicarán telefónicamente para coordinar la entrega de su compra.</p>
+			<p>Desde ya muchas gracias, quedaremos en contacto.</p>
 
 			<ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details">
 

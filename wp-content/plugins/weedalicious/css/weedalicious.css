@@ -5,11 +5,11 @@ Hacé clic en el ícono de ayuda de arriba para averiguar más.
 */
 @font-face {
 	font-family: "Mexican Pride";
-	src: url("http://local.hemppassion.com/wp-content/themes/majesty/fonts/mexican-pride.ttf");
+	src: url("http://hemppassion.com.uy/wp-content/themes/majesty/fonts/mexican-pride.ttf");
 }
 @font-face {
 	font-family: "Blacksword";
-	src: url("http://local.hemppassion.com/wp-content/themes/majesty/fonts/Blacksword.otf");
+	src: url("http://hemppassion.com.uy/wp-content/themes/majesty/fonts/Blacksword.otf");
 }
 .slider-content h1 {
 	font-size:130px !important;

@@ -35,8 +35,124 @@ function hp_custom_wc_add_to_cart_message( $message, $product_id ) {
 //     return $fields;
 // }
 
+function hp_scrape_pictures_meta_box() {
+    add_meta_box(
+        'hp_scrape_pictures', // $id
+        'Importar Fotos', // $title
+        'hp_render_scrape_pictures_meta_box', // $callback
+        'product', // $page
+        'normal', // $context
+        'high'
+    ); // $priority
+}
+add_action('add_meta_boxes', 'hp_scrape_pictures_meta_box');
+
+// Field Array
+$prefix = 'hp_';
+$custom_meta_fields = [[
+    'label' => 'Link a tienda de españa',
+    'desc'  => 'De este link se van a importar las fotos de producto.',
+    'id'    => $prefix.'pictures_url',
+    'type'  => 'text',
+]];
+
+// The Callback
+function hp_render_scrape_pictures_meta_box() {
+    global $custom_meta_fields, $post;
+    // Use nonce for verification
+    echo '<input type="hidden" name="hp_meta_box_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
+
+    // Begin the field table and loop
+    echo '<table class="form-table">';
+    foreach ($custom_meta_fields as $field) {
+        // get value of this field if it exists for this post
+        $meta = get_post_meta($post->ID, $field['id'], true);
+        // begin a table row with
+        echo '<tr>
+            <th><label for="'.$field['id'].'">'.$field['label'].'</label></th>
+            <td>';
+            switch($field['type']) {
+                case 'select':
+                    echo '<select name="'.$field['id'].'" id="'.$field['id'].'">';
+                    foreach ($field['options'] as $option) {
+                        echo '<option', $meta == $option['value'] ? ' selected="selected"' : '', ' value="'.$option['value'].'">'.$option['label'].'</option>';
+                    }
+                    echo    '</select><br /><span class="description">'.$field['desc'].'</span>';
+                    break;
+                case 'text':
+                    echo '<input class="form-control" type="text" name="'.$field['id'].'" id="'.$field['id'].'" placeholder="'.$field['label'].'" value="'.$meta.'" />';
+                    break;
+            } //end switch
+        echo '</td></tr>';
+    } // end foreach
+    echo '</table>'; // end table
+}
+
+function hp_save_meta_fields( $post_id ) {
+    global $prefix;
+    // verify nonce
+    if (!isset($_POST['hp_meta_box_nonce']) || !wp_verify_nonce($_POST['hp_meta_box_nonce'], basename(__FILE__)))
+        return 'nonce not verified';
+  
+    // check autosave
+    if ( wp_is_post_autosave( $post_id ) )
+        return 'autosave';
+  
+    //check post revision
+    if ( wp_is_post_revision( $post_id ) )
+        return 'revision';
+  
+    // check permissions
+    if ( 'product' == $_POST['post_type'] ) {
+        if ( ! current_user_can( 'edit_page', $post_id ) )
+            return 'cannot edit page';
+        } elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return 'cannot edit post';
+    }
+
+    $url = $_POST[$prefix.'pictures_url'];
+    $ch = curl_init();
+    $timeout = 5;
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $html = curl_exec($ch);
+    curl_close($ch);
+    $dom = new DOMDocument;
+    @$dom->loadHTML($html);
+    $images_to_fetch = [];
+    $attachments     = [];
+    $description     = "";
+    $links = $dom->getElementsByTagName('a');
+    foreach ($links as $link) {
+        if ($link->getAttribute('onclick') == "$$('.cloud-zoom-gallery').each(function(e,i){e.removeClassName('actived');});this.addClassName('actived')") {
+            $images_to_fetch[] = $link->getAttribute('href');
+        }
+    }
+    foreach(array_reverse($images_to_fetch) as $index => $image) {
+        // $isThumbnail = $index == 0 ? 'true' : 'null';
+        // dd([$isThumbnail, $index, $image]);
+        // if ($isThumbnail == 'true')
+            $attachments[] = uploadRemoteImageAndAttach($image, $post_id, true);
+        // elseif ($isThumbnail == 'null')
+            // $attachments[] = uploadRemoteImageAndAttach($image, $post_id);
+    }
+    $description = $dom->getElementById('yt_tab_decription');
+
+    wp_update_post([
+        'ID' => $post_id,
+        'post_content' => $description->textContent,
+        'post_excerpt' => $description->textContent,
+    ]);
+    update_post_meta($post_id, '_product_image_gallery', implode(',', $attachments));
+
+    return $post_id;
+    // var_dump($images_to_fetch);die();  
+}
+add_action( 'save_post', 'hp_save_meta_fields' );
+add_action( 'new_to_publish', 'hp_save_meta_fields' );
+
 add_filter('woocommerce_checkout_fields','reorder_woo_fields');
- 
 function reorder_woo_fields($fields) {
     // $fields['billing']['billing_country'] = "Uruguay";
     unset($fields['billing']['billing_company']);
@@ -205,7 +321,7 @@ function array2Table($data) {
                 'total_sales' => '0',
                 '_downloadable' => 'no',
                 '_virtual' => 'yes',
-                '_regular_price' => $product[7],
+                '_regular_price' => $product[5],
                 '_sale_price' => '',
                 '_purchase_note' => '',
                 '_featured' => 'no',
@@ -217,7 +333,7 @@ function array2Table($data) {
                 '_product_attributes' => [],
                 '_sale_price_dates_from' => '',
                 '_sale_price_dates_to' => '',
-                '_price' => $product[7],
+                '_price' => $product[5],
                 '_sold_individually' => '',
                 '_manage_stock' => 'no',
                 '_backorders' => 'no',
@@ -299,4 +415,32 @@ function clearWoocommerce() {
     $result[] = $wpdb->query("DELETE FROM wp_woocommerce_sessions;");
     
     return $result;
+}
+
+function uploadRemoteImageAndAttach($image_url, $parent_id, $thumbnail = false){
+    $image = str_replace('https', 'http', $image_url);
+    $get = wp_remote_get( $image );
+    $type = wp_remote_retrieve_header( $get, 'content-type' );
+
+    if (!$type)
+        return false;
+
+    $mirror = wp_upload_bits( basename( $image ), '', wp_remote_retrieve_body( $get ) );
+    $attachment = array(
+        'post_title'=> basename( $image ),
+        'post_mime_type' => $type
+    );
+    
+    $attach_id = wp_insert_attachment( $attachment, $mirror['file'], $parent_id );
+
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    $attach_data = wp_generate_attachment_metadata( $attach_id, $mirror['file'] );
+    wp_update_attachment_metadata( $attach_id, $attach_data );
+
+    // If thumbnail is set to true use this attachment as featured image
+    dd($attach_id);
+    if($thumbnail)
+        set_post_thumbnail($parent_id, $attach_id);
+
+    return $attach_id;
 }

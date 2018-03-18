@@ -615,7 +615,10 @@
 					}
 					
 					if( MAJESTY.isMobile.any() ){
-                        $(element).addClass('video-mobile');
+						var height = element.height;
+						var width = element.width;
+						$(element).html('<iframe id="ytplayer" type="text/html" width="'+width+'" height="'+height+'" src="'+ytbgVideo+'?loop=1end='+ytbgStop+'start='+ytbgStart+'autoplay=1&enablejsapi=0" frameborder="0"></iframe>');
+                        // $(element).addClass('video-mobile');
                     } else {
 						element.mb_YTPlayer({
 							videoURL: ytbgVideo,
