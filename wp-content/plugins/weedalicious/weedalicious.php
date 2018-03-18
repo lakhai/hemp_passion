@@ -130,7 +130,7 @@ function hp_save_meta_fields( $post_id ) {
         }
     }
     foreach(array_reverse($images_to_fetch) as $index => $image) {
-        $isThumbnail = $index == 0;
+        $isThumbnail = $index == 0 ? true : false;
         if ($isThumbnail)
             $attachments[] = uploadRemoteImageAndAttach($image, $post_id, true);
         else
